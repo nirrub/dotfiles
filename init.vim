@@ -1,48 +1,73 @@
 " VIM-Plug {{{
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'vim-scripts/mru.vim'
+" aesthetic
+Plug 'vim-airline/vim-airline'
+Plug 'jacoborus/tender.vim'
+Plug 'nanotech/jellybeans.vim'
+Plug 'ryanoasis/vim-devicons'
+Plug 'ntk148v/vim-horizon'
+Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'kaicataldo/material.vim'
+Plug 'ajmwagar/vim-deus'
+Plug 'dikiaap/minimalist'
+Plug 'joshdick/onedark.vim'
+
+" editor enhancements
 Plug 'rking/ag.vim'
-Plug 'sandeepcr529/Buffet.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'Raimondi/delimitMate'
-Plug 'Shougo/deoplete.nvim'
-Plug 'zchee/deoplete-jedi'
-Plug 'nanotech/jellybeans.vim'
-Plug 'scrooloose/nerdtree'
-Plug 'vim-scripts/paredit.vim'
-Plug 'kien/rainbow_parentheses.vim'
+Plug 'preservim/nerdtree'
 Plug 'tomtom/tcomment_vim'
-Plug 'tomtom/tlib_vim'
-Plug 'elzr/vim-json'
-Plug 'vim-scripts/vim-addon-mw-utils'
-Plug 'vim-airline/vim-airline'
-Plug 'guns/vim-clojure-highlight'
-Plug 'guns/vim-clojure-static'
-Plug 'tpope/vim-fireplace'
-Plug 'thinca/vim-ft-clojure'
+Plug 'bfredl/nvim-miniyank'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
-Plug 'garbas/vim-snipmate'
-Plug 'honza/vim-snippets'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-fugitive'
-Plug 'ryanoasis/vim-devicons'
-Plug 'w0rp/ale'
-Plug 'tpope/vim-endwise'
-Plug 'jacoborus/tender.vim'
-Plug 'bfredl/nvim-miniyank'
-Plug 'fatih/vim-go'
+Plug 'vim-scripts/gitignore'
+Plug 'garbas/vim-snipmate'
+Plug 'honza/vim-snippets'
+Plug 'dense-analysis/ale'
 Plug 'justinmk/vim-sneak'
-Plug 'clojure-vim/async-clj-omni'
-Plug 'mhinz/vim-startify'
+Plug 'airblade/vim-rooter'
+Plug 'sandeepcr529/Buffet.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'Valloric/ListToggle'
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+Plug 'sheerun/vim-polyglot'
+
+" clojure things
+Plug 'guns/vim-clojure-static'
+Plug 'kovisoft/paredit'
+Plug 'Olical/conjure', {'tag': 'v3.3.0'}
+" Plug 'tpope/vim-fireplace'
+" Plug 'thinca/vim-ft-clojure'
+Plug 'dmac/vim-cljfmt'
 Plug 'humorless/vim-kibit'
+" Plug 'jrdoane/vim-clojure-highlight'
+
+" other languages/filetypes
+Plug 'elixir-lang/vim-elixir'
+Plug 'fatih/vim-go'
+Plug 'elzr/vim-json'
+
+" misc
+Plug 'mhinz/vim-startify'
+Plug 'vim-scripts/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'vim-scripts/mru.vim'
+" Plug 'Shougo/deoplete.nvim'
+" Plug 'zchee/deoplete-jedi'
+Plug 'mbbill/undotree'
 
 call plug#end()
 " }}}
 " Basic options {{{
-let g:python_host_prog='/usr/local/bin/python'
+let g:python_host_prog='/usr/bin/python'
 set nocompatible
+set noshowmode
 set termguicolors
 set modelines=0
 set ts=4
@@ -53,7 +78,6 @@ set expandtab
 set encoding=utf-8
 set scrolloff=3
 set autoindent
-set showmode
 set showcmd
 set hidden
 set wildmenu
@@ -68,6 +92,7 @@ set incsearch
 set showmatch
 set hlsearch
 set formatoptions=l
+set cursorline
 set lbr
 set number
 set gdefault
@@ -93,6 +118,7 @@ set relativenumber
 set timeoutlen=1000 ttimeoutlen=0
 " Better Completion
 set complete=.,w,b,u,t
+" set completeopt=noinsert,menuone,noselect
 set completeopt=longest,menuone,preview
 if getcwd() == $HOME
     if !empty($PROJECTS_DIR)
@@ -148,7 +174,6 @@ set wildignore+=*.orig                           " Merge resolution files
 set wildignore+=classes
 set wildignore+=lib
 " Disable preview scratch window 
-set completeopt=longest,menuone,preview
 " <CR>: close popup and save indent.
 " inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
@@ -176,7 +201,7 @@ nmap <C-right> :tabnext<CR>
 
 noremap <C-up> {zz
 noremap <C-down> }zz
-map <leader>ve :e $MYVIMRC<CR>
+map <leader>vv :e $MYVIMRC<CR>
 map <leader>vr :source $MYVIMRC<CR>
 " Resizing
 map <silent> <A-left> 5<C-w><
@@ -201,6 +226,9 @@ nnoremap N Nzzzv
 nnoremap g; g;zz
 nnoremap g, g,zz
 nnoremap <c-o> <c-o>zz
+" Location and Quickfix toggle
+let g:lt_location_list_toggle_map = '<leader>cx'
+let g:lt_quickfix_list_toggle_map = '<leader>cz'
 " }}}
 " Colors and fonts {{{
 syntax on
@@ -217,24 +245,21 @@ let g:jellybeans_overrides = {
             \                   'cterm': 'UNDERLINE', 
             \                   'guifg': '95BDAE',
             \                   'guibg': '603D36',
-            \                   'attr': 'underline'}
+            \                   'attr': 'underline'},
+            \  'CursorLine': {'guibg': '303030',
+            \                  'ctermbg': '236'}
             \}
-
 set background=dark
-colorscheme jellybeans
+colorscheme PaperColor
+hi MatchParen guifg=#ccff04 guibg=None gui=BOLD cterm=BOLD ctermfg=226 ctermbg=None
 " set gfn=InconsolataGo\ Nerd\ Font:h19
-
-" Airline
-let g:airline_theme = 'tender'
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#whitespace#enabled = 0
 
 " Highlight VCS conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 " }}}
 " NerdTree {{{
 let NERDTreeIgnore = ['\.pyc$', '\.orig$']	
-let NERDTreeQuitOnOpen=1
+let NERDTreeQuitOnOpen=3
 
 " returns true if is NERDTree open/active
 function! NTisNTOpen()        
@@ -256,35 +281,37 @@ nmap <leader><leader>o :call NTImprovedToggle()<CR>
 
 " }}}
 " ALE {{{
-let g:ale_open_list=1
+" let g:ale_open_list=1
+let g:ale_sign_highlight_linenrs=1
 let g:ale_lint_on_insert_leave=1
 let g:ale_lint_on_text_changed='normal'
 let g:ale_python_flake8_args = '--ignore=E --select=E128'
+let g:ale_go_langserver_executable = 'gopls'
+let g:ale_elixir_elixir_ls_release = '/Users/nirr/.elixir-ls/release'
 let g:ale_linters = {
-\   'clojure': ['joker'],
+\   'clojure': ['clj-kondo'],
+\   'elixir': ['credo'],
 \}
-let g:ale_linters_explicit = 1
+" let g:ale_linters_explicit = 1
 
 " }}}
-" deoplete {{{
+" deoplete/ncm2 {{{
 let g:acp_enableAtStartup = 0
 let g:deoplete#enable_at_startup = 1 
-let g:necoghc_enable_detailed_browse = 1
 let g:deoplete#disable_auto_complete=0
+let g:neocomplete#sources#syntax#min_keyword_length = 3
 let g:deoplete#auto_completion_start_length=3
-let g:haskellmode_completion_ghc = 1
 autocmd CompleteDone * pclose
 autocmd FileType python setlocal omnifunc=jedi#completions
 let g:deoplete#keyword_patterns = {}
 let g:deoplete#keyword_patterns.clojure = '[\w!$%&*+/:<=>?@\^_~\-\.#]*'
+" call deoplete#custom#option('keyword_patterns', {'clojure': '[\w!$%&*+/:<=>?@\^_~\-\.#]*'})
+set shortmess+=c
+
 " }}}
 " Folding {{{
 
 set foldlevelstart=0
-
-" Space to toggle folds.
-nnoremap <Space> za
-vnoremap <Space> za
 
 " Make zO recursively open whatever fold we're in, even if it's partially open.
 nnoremap zO zczO
@@ -319,8 +346,9 @@ endfunction " }}}
 set foldtext=MyFoldText()
 " }}}
 " Clojure  {{{
-set lispwords+=ns,if-not,match,when-not,defstate,go-loop
-let g:clojure_fuzzy_indent_patterns = ['^with', '^def', '^let', '^if-not', '^go-loop']
+setlocal lispwords+=ns,if-not,match,when-not,go-loop,POST,GET,ANY
+let g:clojure_special_indent_words = 'deftype,defrecord,reify,proxy,extend-type,extend-protocol,letfn,POST,GET,ANY'
+let g:clojure_fuzzy_indent_patterns = ['^with', '^def', '^let', '^if-not', '^go-loop', '^POST', '^GET', '^ANY']
 let g:clojure_fold_extra = [
             \ 'defgauge',
             \ 'defmeter',
@@ -408,7 +436,7 @@ augroup END
 
 " }}}
 " CtrlP {{{
-let g:ctrlp_map = '<leader>t'
+" let g:ctrlp_map = '<leader>t'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_match_window_reversed = 0
@@ -427,11 +455,6 @@ if executable('ag')
   " " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
 endif
-" if executable('rg')
-"   set grepprg=rg\ --color=never
-"   let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-" endif
-"
 cnoreabbrev Ag Ag!
 
 noremap <silent> qq :Bufferlist<CR>
@@ -454,10 +477,10 @@ endif
 let g:bufferline_echo = 0
 " }}}
 " Rainbow Partnheses {{{
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+augroup rainbow_lisp
+  autocmd!
+  autocmd FileType lisp,clojure,scheme RainbowParentheses
+augroup END
 "}}}
 " Line Return {{{
 
@@ -522,3 +545,161 @@ let g:sneak#label = 1
 " Startify    {{{
 let g:startify_change_to_dir = 0
 "}}}
+" Haskell {{{
+let g:haskell_classic_highlighting = 1
+let g:haskell_indent_if = 3
+let g:haskell_indent_case = 2
+let g:haskell_indent_let = 4
+let g:haskell_indent_where = 6
+let g:haskell_indent_before_where = 2
+let g:haskell_indent_after_bare_where = 2
+let g:haskell_indent_do = 3
+let g:haskell_indent_in = 1
+let g:haskell_indent_guard = 2
+let g:haskell_indent_case_alternative = 1
+let g:cabal_indent_section = 2
+let g:LanguageClient_serverCommands = { 'haskell': ['hie-wrapper'] }
+" let g:necoghc_enable_detailed_browse = 1
+" let g:necoghc_use_stack = 1
+" let g:haskellmode_completion_ghc = 0
+" autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+" }}}
+" Lightline/Airline {{{
+let g:airline_theme = 'tender'
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#whitespace#enabled = 0
+let g:lightline = {
+  \   'active': {
+  \     'left':[ [ 'mode', 'paste' ],
+  \              [ 'gitbranch', 'readonly', 'relativepath', 'modified' ]
+  \     ]
+  \   },
+	\   'component': {
+	\     'lineinfo': ' %3l:%-2v',
+	\   },
+  \   'component_function': {
+  \     'gitbranch': 'MyGitBranch',
+  \     'filetype': 'MyFiletype',
+  \     'fileformat': 'MyFileformat',
+  \   }
+  \ }
+let g:lightline.separator = {
+	\   'left': '', 'right': ''
+  \}
+let g:lightline.subseparator = {
+	\   'left': '', 'right': '' 
+  \}
+
+function! MyFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction
+
+function! MyFileformat()
+  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+endfunction
+
+function! MyGitBranch()
+   let a:branch = FugitiveHead()
+   if a:branch == 'master' || a:branch == ''
+       return a:branch
+   else
+       return a:branch . ' '
+   endif
+endfunction
+
+"}}}
+" LanguageClient {{{
+" let g:LanguageClient_serverCommands = { 'haskell': ['hie'] }
+" nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" map <Leader>lk :call LanguageClient#textDocument_hover()<CR>
+" map <Leader>lg :call LanguageClient#textDocument_definition()<CR>
+" map <Leader>lr :call LanguageClient#textDocument_rename()<CR>
+" map <Leader>lf :call LanguageClient#textDocument_formatting()<CR>
+" map <Leader>lb :call LanguageClient#textDocument_references()<CR>
+" map <Leader>la :call LanguageClient#textDocument_codeAction()<CR>
+" map <Leader>ls :call LanguageClient#textDocument_documentSymbol()<CR>
+"}}}
+" Conjure {{{
+let g:conjure_log_direction = "horizontal"
+let g:conjure_log_blacklist = ["up", "ret", "ret-multiline", "load-file", "eval"]
+let g:conjure_quick_doc_normal_mode = v:false
+" let g:conjure_quick_doc_insert_mode = v:false
+map <leader>cc <leader>cL
+" }}}
+" Rooter {{{
+let g:rooter_change_directory_for_non_project_files = 'current'
+let g:rooter_patterns = [
+\  'project.clj',
+\  'deps.edn',
+\  '.git/',
+\  '.svn/',
+\  '.hg/',
+\  '.bzr/',
+\  '.gitignore',
+\  'Rakefile',
+\  'pom.xml'
+\]
+" }}}
+" COC {{{
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+nnoremap <silent> gh :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" List errors
+nnoremap <silent> <leader>cl  :<C-u>CocList locationlist<cr>
+
+" list commands available in tsserver (and others)
+nnoremap <silent> <leader>cc  :<C-u>CocList commands<cr>
+
+" restart when tsserver gets wonky
+nnoremap <silent> <leader>cR  :<C-u>CocRestart<CR>
+
+" view all errors
+nnoremap <silent> <leader>cl  :<C-u>CocList locationlist<CR>
+
+" manage extensions
+nnoremap <silent> <leader>cx  :<C-u>CocList extensions<cr>
+
+" rename the current word in the cursor
+nmap <leader>cr  <Plug>(coc-rename)
+nmap <leader>cf  <Plug>(coc-format-selected)
+vmap <leader>cf  <Plug>(coc-format-selected)
+
+" run code actions
+vmap <leader>ca  <Plug>(coc-codeaction-selected)
+nmap <leader>ca  <Plug>(coc-codeaction-selected)
+inoremap <silent><expr> <c-p> coc#refresh()
+"}}}
+" Vim-Clap {{{
+noremap <silent> <space><space> :Clap files<CR>
+noremap <silent> <leader>t :Clap files ~/projects<CR>
+autocmd Filetype clap_input call s:clap_mappings()
+
+function! s:clap_mappings()
+    nnoremap <silent> <buffer> q     :<c-u>call clap#handler#exit()<CR>
+    nnoremap <silent> <buffer> x     :<c-u>call clap#action#invoke()<CR>
+    nnoremap <silent> <buffer> <Esc> :call clap#handler#exit()<CR>
+    inoremap <silent> <buffer> <Esc> <C-R>=clap#navigation#linewise('down')<CR><C-R>=clap#navigation#linewise('up')<CR><Esc>
+endfunction
+" let g:clap_insert_mode_only=1
+
+"}}}
+
