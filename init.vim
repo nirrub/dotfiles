@@ -9,10 +9,6 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'ntk148v/vim-horizon'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'NLKNguyen/papercolor-theme'
-Plug 'kaicataldo/material.vim'
-Plug 'ajmwagar/vim-deus'
-Plug 'dikiaap/minimalist'
-Plug 'joshdick/onedark.vim'
 
 " editor enhancements
 Plug 'rking/ag.vim'
@@ -41,12 +37,9 @@ Plug 'sheerun/vim-polyglot'
 " clojure things
 Plug 'guns/vim-clojure-static'
 Plug 'kovisoft/paredit'
-Plug 'Olical/conjure', {'tag': 'v3.3.0'}
-" Plug 'tpope/vim-fireplace'
-" Plug 'thinca/vim-ft-clojure'
+Plug 'Olical/conjure', {'tag': 'v3.4.0'}
 Plug 'dmac/vim-cljfmt'
 Plug 'humorless/vim-kibit'
-" Plug 'jrdoane/vim-clojure-highlight'
 
 " other languages/filetypes
 Plug 'elixir-lang/vim-elixir'
@@ -58,8 +51,6 @@ Plug 'mhinz/vim-startify'
 Plug 'vim-scripts/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'vim-scripts/mru.vim'
-" Plug 'Shougo/deoplete.nvim'
-" Plug 'zchee/deoplete-jedi'
 Plug 'mbbill/undotree'
 
 call plug#end()
