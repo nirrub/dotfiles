@@ -1,4 +1,4 @@
-{:user {:plugins [[cider/cider-nrepl "0.22.0"]
+{:user {:plugins [[cider/cider-nrepl "0.25.0"]
                   [jonase/eastwood "0.3.5" :exclusions [org.clojure/clojure]]
                   [lein-kibit "0.1.6" :exclusions [org.clojure/clojure]]
                   [lein-cljfmt "0.6.1"]

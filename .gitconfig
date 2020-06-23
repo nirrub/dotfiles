@@ -1,0 +1,32 @@
+[core]
+	excludesfile = /home/nir/.gitignore_global
+	autocrlf = input
+[diff]
+    guitool = kdiff3
+[difftool "kdiff3"]
+	cmd = kdiff3 \"$LOCAL\" \"$REMOTE\"
+	path = 
+	trustExitCode = true
+    prompt = false
+[merge]
+    tool = kdiff3
+[mergetool "kdiff3"]
+	cmd = kdiff3 \"$BASE\" \"$LOCAL\" \"$REMOTE\" -o \"$MERGED\"
+	trustExitCode = true
+[user]
+	name = Nir Rubinstein
+	email = nir@appsflyer.com
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[difftool]
+	prompt = false
+[alias]
+    tags = tag -l
+    branches = branch -a
+    pull = pull --ff-only
+    up = checkout
+    revert = reset --hard
+    addremove = !git add . && git add -u

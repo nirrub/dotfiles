@@ -11,7 +11,7 @@ Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'NLKNguyen/papercolor-theme'
 
 " editor enhancements
-Plug 'rking/ag.vim'
+" Plug 'rking/ag.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'Raimondi/delimitMate'
 Plug 'preservim/nerdtree'
@@ -31,13 +31,15 @@ Plug 'airblade/vim-rooter'
 Plug 'sandeepcr529/Buffet.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'Valloric/ListToggle'
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+" Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 Plug 'sheerun/vim-polyglot'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 " clojure things
 Plug 'guns/vim-clojure-static'
 Plug 'kovisoft/paredit'
-Plug 'Olical/conjure', {'tag': 'v3.4.0'}
+Plug 'Olical/conjure', {'tag': 'v3.5.0'}
 Plug 'dmac/vim-cljfmt'
 Plug 'humorless/vim-kibit'
 
@@ -680,17 +682,23 @@ nmap <leader>ca  <Plug>(coc-codeaction-selected)
 inoremap <silent><expr> <c-p> coc#refresh()
 "}}}
 " Vim-Clap {{{
-noremap <silent> <space><space> :Clap files<CR>
-noremap <silent> <leader>t :Clap files ~/projects<CR>
-autocmd Filetype clap_input call s:clap_mappings()
-
-function! s:clap_mappings()
-    nnoremap <silent> <buffer> q     :<c-u>call clap#handler#exit()<CR>
-    nnoremap <silent> <buffer> x     :<c-u>call clap#action#invoke()<CR>
-    nnoremap <silent> <buffer> <Esc> :call clap#handler#exit()<CR>
-    inoremap <silent> <buffer> <Esc> <C-R>=clap#navigation#linewise('down')<CR><C-R>=clap#navigation#linewise('up')<CR><Esc>
-endfunction
+" noremap <silent> <space><space> :Clap files<CR>
+" noremap <silent> <leader>t :Clap files ~/projects<CR>
+" autocmd Filetype clap_input call s:clap_mappings()
+"
+" function! s:clap_mappings()
+"     nnoremap <silent> <buffer> q     :<c-u>call clap#handler#exit()<CR>
+"     nnoremap <silent> <buffer> x     :<c-u>call clap#action#invoke()<CR>
+"     nnoremap <silent> <buffer> <Esc> :call clap#handler#exit()<CR>
+"     inoremap <silent> <buffer> <Esc> <C-R>=clap#navigation#linewise('down')<CR><C-R>=clap#navigation#linewise('up')<CR><Esc>
+" endfunction
 " let g:clap_insert_mode_only=1
+
+"}}}
+" FZF {{{
+command! -bang ProjectFiles call fzf#vim#files('~/projects', <bang>0)
+noremap <silent> <leader>t :Files ~/projects<CR>
+noremap <silent> <space><space> :Files<CR>
 
 "}}}
 
