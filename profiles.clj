@@ -16,4 +16,5 @@
                        [lein-cljfmt "0.6.1"]
                        [lein-kibit "0.1.6" :exclusions [org.clojure/clojure]]
                        [org.clojure/tools.namespace "0.2.11"]
-                       [pjstadig/humane-test-output "0.8.3"] ]}}
+                       [pjstadig/humane-test-output "0.8.3"]
+                       ]}}

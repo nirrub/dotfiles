@@ -2,6 +2,7 @@
 call plug#begin('~/.config/nvim/plugged')
 
 " aesthetic
+" Plug 'itchyny/lightline.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'jacoborus/tender.vim'
 Plug 'nanotech/jellybeans.vim'
@@ -507,10 +508,10 @@ let g:webdevicons_enable_nerdtree = 1
 let g:webdevicons_enable_unite = 1
 
 " adding to vim-airline's tabline 
-let g:webdevicons_enable_airline_tabline = 1
+" let g:webdevicons_enable_airline_tabline = 1
 
 " adding to vim-airline's statusline 
-let g:webdevicons_enable_airline_statusline = 1
+" let g:webdevicons_enable_airline_statusline = 1
 
 " ctrlp glyphs
 let g:webdevicons_enable_ctrlp = 1
@@ -561,6 +562,8 @@ let g:LanguageClient_serverCommands = { 'haskell': ['hie-wrapper'] }
 let g:airline_theme = 'tender'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#branch#displayed_head_limit = 18
+
 let g:lightline = {
   \   'active': {
   \     'left':[ [ 'mode', 'paste' ],
@@ -592,11 +595,11 @@ function! MyFileformat()
 endfunction
 
 function! MyGitBranch()
-   let a:branch = FugitiveHead()
-   if a:branch == 'master' || a:branch == ''
-       return a:branch
+   let branch = FugitiveHead()
+   if branch == 'master' || branch == ''
+       return branch
    else
-       return a:branch . ' '
+       return branch . ' '
    endif
 endfunction
 
