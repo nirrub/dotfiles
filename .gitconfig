@@ -30,3 +30,5 @@
     up = checkout
     revert = reset --hard
     addremove = !git add . && git add -u
+[cola]
+	spellcheck = false

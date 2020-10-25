@@ -7,18 +7,6 @@
   "suggest.maxPreviewWidth": 0,
   "codeLens.enable": true,
   "languageserver": {
-    "clojure-lsp": {
-      "command": "bash",
-      "args": ["-c", "clojure-lsp"],
-      "filetypes": ["clojure"],
-      "disableDiagnostics": true,
-      "rootPatterns": ["deps.edn", "project.clj"],
-      "additionalSchemes": ["jar", "zipfile"],
-      "trace.server": "verbose",
-      "initializationOptions": {
-        "use-metadata-for-privacy?": true
-      }
-    },
     "elixirLS": {
       "command": "~/.elixir-ls/release/language_server.sh",
       "filetypes": ["elixir", "eelixir"]

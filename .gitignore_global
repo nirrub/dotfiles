@@ -45,3 +45,5 @@ nvim/plugged/**
 /.lsp
 .lsp/
 conjure-log*
+/.git
+.git/

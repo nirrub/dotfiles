@@ -32,7 +32,6 @@ Plug 'airblade/vim-rooter'
 Plug 'sandeepcr529/Buffet.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'Valloric/ListToggle'
-" Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
